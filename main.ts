@@ -1,9 +1,9 @@
 namespace SpriteKind {
     export const flag = SpriteKind.create()
+    export const collectible = SpriteKind.create()
 }
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile1`, function (sprite, location) {
-    tiles.setCurrentTilemap(tilemap`level4`)
-    tiles.setTileAt(location, assets.tile`transparency16`)
+scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile0`, function (sprite, location) {
+    game.gameOver(false)
 })
 scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     if (hero.isHittingTile(CollisionDirection.Bottom)) {
@@ -17,16 +17,184 @@ scene.onHitWall(SpriteKind.Player, function (sprite, location) {
     }
 })
 controller.up.onEvent(ControllerButtonEvent.Pressed, function () {
+    animation.runImageAnimation(
+    hero,
+    [img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f f f f f f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `,img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 f 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 f 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 f 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 f 3 3 3 3 f f f f 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `,img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f f f f f f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `,img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 f 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 f 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 f 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 f f f f 3 3 3 3 f 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `,img`
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 f f f f f 3 3 3 3 f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 f f f f f f f f f f f f f f 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+        `],
+    100,
+    false
+    )
     if (number_of_jumps < max_jumps) {
         max_jumps += 1
         hero.vy = jump_velocity
     }
 })
-scene.onOverlapTile(SpriteKind.Player, assets.tile`myTile`, function (sprite, location) {
-    game.gameOver(false)
+function spawnCoin () {
+    for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
+        coin = sprites.create(img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `, SpriteKind.collectible)
+        tiles.placeOnTile(coin, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
+        animation.runImageAnimation(
+        coin,
+        [img`
+            . . b b b b . . 
+            . b 5 5 5 5 b . 
+            b 5 d 3 3 d 5 b 
+            b 5 3 5 5 1 5 b 
+            c 5 3 5 5 1 d c 
+            c d d 1 1 d d c 
+            . f d d d d f . 
+            . . f f f f . . 
+            `,img`
+            . . b b b . . . 
+            . b 5 5 5 b . . 
+            b 5 d 3 d 5 b . 
+            b 5 3 5 1 5 b . 
+            c 5 3 5 1 d c . 
+            c 5 d 1 d d c . 
+            . f d d d f . . 
+            . . f f f . . . 
+            `,img`
+            . . . b b . . . 
+            . . b 5 5 b . . 
+            . b 5 d 1 5 b . 
+            . b 5 3 1 5 b . 
+            . c 5 3 1 d c . 
+            . c 5 1 d d c . 
+            . . f d d f . . 
+            . . . f f . . . 
+            `,img`
+            . . . b b . . . 
+            . . b 5 5 b . . 
+            . . b 1 1 b . . 
+            . . b 5 5 b . . 
+            . . b d d b . . 
+            . . c d d c . . 
+            . . c 3 3 c . . 
+            . . . f f . . . 
+            `,img`
+            . . . b b . . . 
+            . . b 5 5 b . . 
+            . b 5 1 d 5 b . 
+            . b 5 1 3 5 b . 
+            . c d 1 3 5 c . 
+            . c d d 1 5 c . 
+            . . f d d f . . 
+            . . . f f . . . 
+            `,img`
+            . . . b b b . . 
+            . . b 5 5 5 b . 
+            . b 5 d 3 d 5 b 
+            . b 5 1 5 3 5 b 
+            . c d 1 5 3 5 c 
+            . c d d 1 d 5 c 
+            . . f d d d f . 
+            . . . f f f . . 
+            `],
+        100,
+        true
+        )
+    }
+}
+sprites.onOverlap(SpriteKind.Player, SpriteKind.collectible, function (sprite, otherSprite) {
+    info.changeScoreBy(5)
+    sprites.destroy(otherSprite)
 })
 function Level_Flag () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
+    for (let value of tiles.getTilesByType(assets.tile`tile1`)) {
         end_flag = sprites.create(img`
             . . . . . . 2 2 . . . . . . . . 
             . . . . . . 2 2 2 . . . . . . . 
@@ -46,23 +214,27 @@ function Level_Flag () {
             . . . . . . . f f . . . . . . . 
             `, SpriteKind.flag)
         tiles.placeOnTile(end_flag, value)
+        tiles.setTileAt(value, assets.tile`transparency16`)
     }
 }
+scene.onOverlapTile(SpriteKind.Player, assets.tile`tile1`, function (sprite, location) {
+    tiles.setCurrentTilemap(tilemap`level4`)
+})
 function spawnPlayer () {
-    for (let value of tiles.getTilesByType(assets.tile`myTile1`)) {
+    for (let value of tiles.getTilesByType(assets.tile`myTile`)) {
         hero = sprites.create(img`
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 f f f f f 3 3 3 3 f f f f f 3 
+            3 f f f f f 3 3 3 3 f f f f f 3 
+            3 f f f f f 3 3 3 3 f f f f f 3 
+            3 f f f f f 3 3 3 3 f f f f f 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
-            3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
+            3 f f f f f f f f f f f f f f 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
             3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 
@@ -81,10 +253,12 @@ function spawnPlayer () {
 }
 let Gravity = 0
 let end_flag: Sprite = null
+let coin: Sprite = null
 let jump_velocity = 0
 let max_jumps = 0
 let number_of_jumps = 0
 let hero: Sprite = null
+info.setScore(0)
 scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
@@ -207,6 +381,7 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
-tiles.setCurrentTilemap(tilemap`level2`)
+tiles.setCurrentTilemap(tilemap`level7`)
 spawnPlayer()
 Level_Flag()
+spawnCoin()
